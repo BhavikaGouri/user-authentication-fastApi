@@ -22,7 +22,7 @@ def on_startup():
     create_db_and_table()
 
 
-def authenticate_user(username: str, session: Session, password: str):
+def is_authenticated(username: str, session: Session, password: str):
     user = session.get(User, username)
     if not user:
         return False
