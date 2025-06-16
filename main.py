@@ -6,7 +6,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 import random
-from contextlib import asynccontextmanager
+
 
 SECRET_KEY = "your_secret_key_here"
 ALGORITHM = "HS256"
@@ -14,8 +14,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 hash_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 Oauth2Scheme = OAuth2PasswordBearer(tokenUrl="login")
-
-app = FastAPI()
 
 
 class User(SQLModel, table=True):
@@ -29,20 +27,8 @@ class User(SQLModel, table=True):
 connect_args = {"check_same_thread": False}
 engine = create_engine("sqlite:///orm-user.db", connect_args=connect_args)
 
-
 def create_db_and_table():
     SQLModel.metadata.create_all(engine)
-
-
-@asynccontextmanager
-async def lifespan(app):
-    # Startup logic
-    create_db_and_table()
-    yield
-    # (Optional) Shutdown logic
-
-
-app = FastAPI(lifespan=lifespan)
 
 
 def get_session():
@@ -53,7 +39,7 @@ def get_session():
 SessionDep = Annotated[Session, Depends(get_session)]
 
 
-def get_hash(password):
+def get_hash(password: str) -> str:
     return hash_context.hash(password)
 
 
@@ -63,6 +49,8 @@ def verify_password(hashed_password, password):
 
 def authenticate_user(username: str, session: SessionDep, password: str):
     user = session.get(User, username)
+    if not user:
+        return False
     if user.username != username:
         return False
     if not verify_password(user.hashed_password, password):
@@ -105,6 +93,13 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
+
+app = FastAPI()
+
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_table()
 
 
 @app.post("/signup")
