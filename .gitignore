@@ -1,0 +1,10 @@
+app/__pycache__
+app/.idea
+app/.venv
+app/orm-user.db
+app/app/__pycache__
+app/app/api/__pycache__
+app/app/auth/__pycache__
+app/app/core/__pycache__
+app/app/db/__pycache__
+app/app/models/__pycache__
