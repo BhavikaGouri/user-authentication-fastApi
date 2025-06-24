@@ -2,9 +2,9 @@ app/__pycache__
 app/.idea
 app/.venv
 app/orm-user.db
-app/app/__pycache__
-app/app/api/__pycache__
-app/app/auth/__pycache__
-app/app/core/__pycache__
-app/app/db/__pycache__
-app/app/models/__pycache__
+**/__pycache__/
+**/api/__pycache__
+**/auth/__pycache__
+**/core/__pycache__
+**/db/__pycache__
+**/models/__pycache__
