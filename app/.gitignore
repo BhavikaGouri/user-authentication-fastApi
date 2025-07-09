@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+
+# IDE
+.idea/
+.vscode/
+
+# Database files
+orm-user.db
+
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+
