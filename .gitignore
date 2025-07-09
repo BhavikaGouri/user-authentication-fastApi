@@ -6,9 +6,11 @@ orm-user.db
 
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
+
+# IDE
+.idea/
+.vscode/
+
+# Database files
+orm-user.db
 
