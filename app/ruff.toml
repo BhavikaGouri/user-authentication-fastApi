@@ -1,0 +1,8 @@
+# ruff.toml
+
+line-length = 88
+target-version = "py312"  # or py310, py311 depending on your version
+
+[lint]
+select = ["E", "F", "I", "UP"]  # E = pycodestyle, F = pyflakes, I = isort, UP = upgrades
+ignore = ["E501"]  # Example: ignore line too long
