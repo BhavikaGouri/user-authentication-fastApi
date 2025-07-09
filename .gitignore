@@ -11,6 +11,5 @@ __pycache__/
 .idea/
 .vscode/
 
-# Database files
-orm-user.db
+
 
