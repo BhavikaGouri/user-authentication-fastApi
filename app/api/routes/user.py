@@ -1,13 +1,15 @@
-from fastapi import APIRouter, Depends, HTTPException
-from sqlmodel import Session, select
-from app.models.user import User
-from app.db.session import get_session
-from app.auth.security import get_hash
 import random
+
+from fastapi import APIRouter, Depends, HTTPException
 from slugify import slugify
+from sqlmodel import Session, select
+
+from app.auth.security import get_hash
+from app.db.session import get_session
 from app.db.users import User
 
 router = APIRouter()
+
 
 @router.post("/signup")
 async def add_user(new_user: User, session: Session = Depends(get_session)):
@@ -25,7 +27,7 @@ async def add_user(new_user: User, session: Session = Depends(get_session)):
         username=username,
         email=new_user.email,
         hashed_password=get_hash(new_user.password),
-        disabled=False
+        disabled=False,
     )
     session.add(new_user)
     session.commit()

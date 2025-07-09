@@ -1,10 +1,14 @@
-app/__pycache__
-app/.idea
-app/.venv
-app/orm-user.db
-**/__pycache__/
-**/api/__pycache__
-**/auth/__pycache__
-**/core/__pycache__
-**/db/__pycache__
-**/models/__pycache__
+# database files
+orm-user.db
+
+# macOS system files
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
