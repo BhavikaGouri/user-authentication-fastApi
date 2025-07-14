@@ -6,13 +6,14 @@ from sqlmodel import Session, select
 
 from app.auth.security import get_hash
 from app.db.session import get_session
-from app.db.users import User
+from app.models.user import User
+from app.db.users import UserData
 
 router = APIRouter()
 
 
 @router.post("/signup")
-async def add_user(new_user: User, session: Session = Depends(get_session)):
+async def add_user(new_user: UserData, session: Session = Depends(get_session)):
     statement = select(User).where(User.email == new_user.email)
     if session.exec(statement).first():
         raise HTTPException(status_code=400, detail="Email already exists")
